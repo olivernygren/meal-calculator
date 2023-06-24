@@ -15,7 +15,7 @@ const MealCalculator = () => {
   const [amountUnit, setAmountUnit] = useState(UnitsEnum.GRAMS);
   
   const [comparisonPrice, setComparisonPrice] = useState('');
-  const [comparisonPriceUnit, setComparisonPriceUnit] = useState(undefined);
+  const [comparisonPriceUnit, setComparisonPriceUnit] = useState<ComparisonPriceUnitsEnum | undefined>(undefined);
 
   const [meal, setMeal] = useState<Meal>({ foodItems: [], totalCost: 0 });
 
@@ -104,6 +104,14 @@ const MealCalculator = () => {
     setComparisonPrice('');
   };
 
+  const handleSetAmountUnit = (unit: UnitsEnum) => {
+    setAmountUnit(unit);
+  }
+
+  const handleSetComparisonPriceUnit = (unit: ComparisonPriceUnitsEnum) => {
+    setComparisonPriceUnit(unit);
+  }
+
   return (
     <RootContainer>
       {/* {getTabBar()} */}
@@ -112,15 +120,17 @@ const MealCalculator = () => {
       <FiftiFiftyInputContainer>
         <Input label="Mängd" placeholder="t.ex. 250" value={amount} onChange={({ currentTarget }) => setAmount(currentTarget.value)} />
         <Dropdown 
-          onChange={({ currentTarget }) => setAmountUnit(currentTarget.value)} 
+          onOptionClick={(unit: UnitsEnum) => handleSetAmountUnit(unit)}
+          // onChange={() => handleSetAmountUnit()} 
           value={amountUnit} 
           options={[ UnitsEnum.GRAMS, UnitsEnum.UNIT, UnitsEnum.KILOGRAMS, UnitsEnum.LITERS, UnitsEnum.DECILITERS, UnitsEnum.MILLILITERS ]}
-          />
+        />
       </FiftiFiftyInputContainer>
       <FiftiFiftyInputContainer>
         <Input label="Jämförspris" placeholder="t.ex. 14,95" value={comparisonPrice} onChange={({ currentTarget }) => setComparisonPrice(currentTarget.value)} />
         <Dropdown 
-          onChange={({ currentTarget }) => setComparisonPriceUnit(currentTarget.value)} 
+          onOptionClick={(unit: ComparisonPriceUnitsEnum) => handleSetComparisonPriceUnit(unit)}
+          // onChange={({ currentTarget }) => setComparisonPriceUnit(currentTarget.value)} 
           value={comparisonPriceUnit ?? getDefaultComaparisonUnit()}
           options={[ UnitsEnum.KILOGRAMS, UnitsEnum.UNIT, UnitsEnum.LITERS ]}
         />

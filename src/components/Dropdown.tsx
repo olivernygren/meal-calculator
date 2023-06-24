@@ -6,12 +6,13 @@ interface DropdownProps {
   label?: string;
   placeholder?: string;
   value?: any;
-  onChange: (value: any) => void;
+  onChange?: (value: any) => void;
   onBlur?: () => void;
   options: Array<string>;
+  onOptionClick: (option: any) => void;
 }
 
-const Dropdown = ({ label, value, onChange, onBlur, placeholder, options }: DropdownProps) => {
+const Dropdown = ({ label, value, onChange, onBlur, placeholder, options, onOptionClick }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   
   return (
@@ -26,10 +27,14 @@ const Dropdown = ({ label, value, onChange, onBlur, placeholder, options }: Drop
         <span>{value}</span>
         {isOpen ? <CaretUp /> : <CaretDown />}
       </StyledDropdown>
+      {/* {options.map((option: string) => (
+        <p>{option}</p>
+      ))} */}
       {isOpen && (
         <MenuContainer onClick={() => setIsOpen(false)}>
-          {options.map((option: any) => (
-            <MenuOption value={option} onClick={onChange}>{option}</MenuOption>
+          {options.map((option: string) => (
+            <MenuOption key={option} onClick={() => onOptionClick(option)}>{option}</MenuOption>
+            // <p>{option}</p>
           ))}
         </MenuContainer>
       )}
@@ -81,14 +86,9 @@ const MenuContainer = styled.div`
   row-gap: 8px;
 `;
 
-const MenuOption = styled.option`
+const MenuOption = styled.div`
   padding: 4px 0px;
-  /* padding: 2px 0px 8px 0px;
-  border-bottom: 1px solid #dde2e8;
-
-  &:last-child {
-    border-bottom: none;
-  } */
+  min-height: 30px;
 `;
 
 export default Dropdown;
