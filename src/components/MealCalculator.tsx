@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components';
-import { ComparisonPriceUnitsEnum, TabsEnum, UnitsEnum } from '../utils/enums/enums';
+import { ComparisonPriceUnitsEnum, UnitsEnum } from '../utils/enums/enums';
 import Input from './Input';
 import Dropdown from './Dropdown';
 import Button from './Button';
 import { Meal } from '../utils/types';
 
 const MealCalculator = () => {
-  const [activeTab, setActiveTab] = useState<TabsEnum>(TabsEnum.MEAL_CALCULATOR);
+  // const [activeTab, setActiveTab] = useState<TabsEnum>(TabsEnum.MEAL_CALCULATOR);
 
   const [foodItemName, setFoodItemName] = useState<string>('');
 
@@ -52,15 +52,6 @@ const MealCalculator = () => {
       default:
         return ComparisonPriceUnitsEnum.KILOGRAMS;
     }
-  };
-
-  const getTotalMealCost = () => {
-    // if (meal.foodItems.length === 1) return meal.foodItems[0].cost;
-    console.log(meal.foodItems.reduce((acc, curr) => acc + curr.cost, 0));
-    console.log(calculateFoodCost());
-    
-    // return meal.foodItems.reduce((acc, curr) => acc + curr.cost, 0) + calculateFoodCost();
-    return 0;
   };
 
   const getNewFoodItemObject = () => {
