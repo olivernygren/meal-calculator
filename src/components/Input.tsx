@@ -44,6 +44,7 @@ const StyledInput = styled.input<StyledInputProps>`
   border-radius: 8px;
   background-color: white;
   padding: 4px 8px;
+  font-size: 15px;
 
   :focus {
     border: 1px solid #C4CED8;
